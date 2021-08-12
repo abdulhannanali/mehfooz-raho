@@ -1,57 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useState } from "react";
+import { Layout, Menu, Row, Col } from "antd";
+import { Route, Link, Switch } from "react-router-dom";
+
+import Logo from "./Logo";
+import Home from "./Home";
+
+import "./App.css";
+import AllCentresDisplay from "./features/vaccinationCentres/CentresDisplay";
+
+const IS_DARK_DEFAULT =
+  "matchMedia" in window && window.matchMedia("(prefers-color-scheme: dark)");
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <Layout className="layout">
+      <Layout.Header>
+        <Row gutter={{ xs: 8, sm: 16 }}>
+          <Col className="gutter-row" xs={24} sm={12} md={12}>
+            <Logo></Logo>
+          </Col>
+          <Col className="gutter-row" xs={24} sm={12} md={12}></Col>
+        </Row>
+      </Layout.Header>
+      <Layout.Content>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/allCentres" component={AllCentresDisplay}></Route>
+          <Route path="/cities" component={Cities}></Route>
+        </Switch>
+      </Layout.Content>
+      <Layout.Footer></Layout.Footer>
+    </Layout>
   );
 }
 

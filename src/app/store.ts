@@ -1,9 +1,12 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+
+import vaccinationCentres from "../features/vaccinationCentres/vaccinationCentresSlice";
+import vaccinationGroups from "../features/vaccinationGroups/vaccinationGroupsSlice";
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    vaccinationCentres,
+    vaccinationGroups,
   },
 });
 
