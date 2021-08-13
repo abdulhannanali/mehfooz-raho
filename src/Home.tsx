@@ -1,5 +1,5 @@
 import Helmet from "react-helmet";
-import { Row, Col, Button, Card, Statistic } from "antd";
+import { Row, Col, Button, Card, Statistic, Typography } from "antd";
 import TextTransition from "./TextTransition";
 
 import "./Home.css";
@@ -10,7 +10,7 @@ const vaccinatedPakistanSpans = [
   "ويڪسين ٿيل پاڪستان",
   "ویکسین شدہ پاکستان۔",
   "پاکستان واکسینه شده است",
-].map((text) => <span className="transitioningText">{text}</span>);
+].map((text) => <span className="transitioningText"><Typography.Title>{text}</Typography.Title></span>);
 
 export default function Home() {
   return (

@@ -3,9 +3,9 @@ import {
   createSlice,
   createAsyncThunk,
   PayloadAction,
-  SerializedError,
   createSelector,
   EntityAdapter,
+  Dictionary,
 } from "@reduxjs/toolkit";
 import {
   CityWithCount,
@@ -51,6 +51,7 @@ const groupsSlice = createSlice({
   },
 });
 
+
 export const selectors = {
   selectVaccinationGroups: (state: RootState) => state.vaccinationGroups,
   selectFetchState: (state: RootState) =>
@@ -61,22 +62,28 @@ export const groupsSelectors = groupsAdapter.getSelectors(
   selectors.selectVaccinationGroups
 )
 
-export const selectCitiesByFilter = createSelector(
-  [groupsSelectors.selectAll, (_: any, filter: { district?: string; province: string; } | null) => filter],
-  (citiesWithCount, filter) => {
-    if (!filter) {
-      return citiesWithCount
-    }
+export const selectCitiesIdsByFilter = createSelector(
+  [
+    groupsSelectors.selectEntities,
+    (_: any, filter: Filter) => filter,
+  ],
+  (entities, filter) => {
+    return Object.entries(entities).filter(([key, cityWithCount]) => {
+      if (cityWithCount && typeof key === 'string') {
+        if (isDistrictFilter(filter)) {
+          return (
+            cityWithCount.city.district === filter.district &&
+            cityWithCount.city.province === filter.province
+          )
+        }
+        
+        if (isProvinceFilter(filter)) {
+          return cityWithCount.city.province === filter.province
+        }
+      }
 
-    citiesWithCount.filter(cityWithCount => {
-      return (
-        (filter.province && filter.province === cityWithCount.city.province) &&
-        (
-          (filter.district && filter.district === cityWithCount.city.district) ||
-          !(filter.district)
-        )
-      )
-    })
+      return false
+    }).map(([key]) => key)
   }
 );
 

@@ -11,11 +11,9 @@
   text-align: center;
 }
 
-.home .hero .textTransition {
+.home .hero .textTransition h1 {
+  display: inline;
   font-size: 5em;
-}
-
-.home .hero .textTransition span {
   background-color: green;
   opacity: 0.8;
   padding: 0.01em;

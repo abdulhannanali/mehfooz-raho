@@ -1,7 +1,7 @@
 import { Row, Card, Col } from "antd";
 import React from "react";
 import VaccinationCentreCard from "./VaccinationCentreCard";
-import { VaccinationCentre } from "./vaccinationsFakeAPI";
+import { VaccinationCentre } from "../../api/vaccinationsFakeAPI";
 import { splitEvery } from "ramda";
 
 function VaccinationCentresList(props: {

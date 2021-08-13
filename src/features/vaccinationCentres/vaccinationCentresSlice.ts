@@ -9,9 +9,8 @@ import { RootState } from "../../app/store";
 
 import {
   VaccinationCentre,
-  fetchVaccinationCentres,
-  fetchCitiesWithCount,
-} from "./vaccinationsFakeAPI";
+  fetchVaccinationCentres
+} from "../../api/vaccinationsFakeAPI";
 
 const SLICE_NAME = "vaccinationCentres";
 

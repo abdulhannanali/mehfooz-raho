@@ -3,8 +3,7 @@ import { Card, Skeleton } from "antd";
 import healthCareWorkerImage from "./avatars/healthcareworker.png";
 import {
   VaccinationCentre,
-  VaccinationDesignation,
-} from "./vaccinationsFakeAPI";
+} from "../../api/vaccinationsFakeAPI";
 
 const loadingCardProps = {
   title: "Sample Center Name",

@@ -6,7 +6,7 @@ import {
   fetchVaccinationCentresThunk,
   selectVaccinationCentres,
 } from "./vaccinationCentresSlice";
-import { getVaccinationCentreFullInformation } from "./vaccinationsFakeAPI";
+
 
 let isFetchedOnce = false;
 

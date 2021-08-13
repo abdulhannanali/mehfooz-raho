@@ -1,0 +1,1 @@
+export const GOOGLE_CLIENT_SIDE_API_KEY = ''

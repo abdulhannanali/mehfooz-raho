@@ -7,6 +7,7 @@ import Home from "./Home";
 
 import "./App.css";
 import AllCentresDisplay from "./features/vaccinationCentres/CentresDisplay";
+import Cities from "./features/vaccinationCities/Cities";
 
 const IS_DARK_DEFAULT =
   "matchMedia" in window && window.matchMedia("(prefers-color-scheme: dark)");
@@ -22,11 +23,13 @@ function App() {
           <Col className="gutter-row" xs={24} sm={12} md={12}></Col>
         </Row>
       </Layout.Header>
-      <Layout.Content>
+      <Layout.Content className="layout-content">
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/allCentres" component={AllCentresDisplay}></Route>
-          <Route path="/cities" component={Cities}></Route>
+          <Route path="/cities/:province" component={Cities} />
+          <Route path="/cities/:province/:district" component={Cities} />
+          <Route exact path="/cities" component={Cities}></Route>
+          <Route exact path="/centres" component={AllCentresDisplay}></Route>
         </Switch>
       </Layout.Content>
       <Layout.Footer></Layout.Footer>

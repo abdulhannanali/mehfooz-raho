@@ -1,20 +1,19 @@
-import VaccinationGroups from "./VaccinationGroups";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useParams, useRouteMatch } from 'react-router-dom'
 
 
 import {
-  groupsSelectors,
   fetchCitiesWithCountThunk,
-  selectCitiesByFilter,
   selectors
-} from "./vaccinationGroupsSlice";
-import { CityWithCount } from "../../api/vaccinationsFakeAPI";
-import { useDispatch } from "react-redux";
+} from "./vaccinationCitiesSlice";
+
 import { FetchState } from "../types";
 import React from "react";
-import { Row, Col } from "antd";
-import VaccinationCityGroup from "./VaccinationGroups";
+import VaccinationCityGroup from "./VaccionationCityGroup";
+import FetchError from "../../FetchError";
+import { Filter } from "./FilterType";
+
+import { Row, Col, Typography } from "antd";
 
 type CityParams = {
   province: string;
@@ -40,30 +39,44 @@ type CityParams = {
  */
 export default function Cities() {
   const dispatch = useAppDispatch()
-  const { district, province } = useParams<{province?: string; district?:string;}>()
-  const filter = province ? { district, province } : null
-
-  const title = !filter ?
-    `Cities in ${district ? district + '/' : ''}${province}` :
-    `All cities`
-
-
-  const cities : CityWithCount[] = useAppSelector((state) => selectCitiesByFilter(state, filter))
+  
   const fetchState = useAppSelector(selectors.selectFetchState)
   const isLoading = fetchState === FetchState.pending
   const isRejected = fetchState === FetchState.rejected
+  
+  const { district, province } = useParams<{
+    province?: string;
+    district?: string;
+  }>()
 
+  const filter: Filter | undefined = province ? { district, province } : undefined
+  
+  const title = filter !== undefined ?
+    `Cities in ${district ? district + '/' : ''}${province}` :
+    `All Cities`
+  
+  if (isRejected) {
+    return <FetchError />
+  }
+
+  
   if (fetchState === FetchState.idle) {
     dispatch(fetchCitiesWithCountThunk())
   }
-
+  
   return (
     <React.Fragment>
       <Row className="pageHeader">
-        <Col span={24}><h1>{title}</h1></Col>
+        <Col span={24}><Typography.Title>{title}</Typography.Title></Col>
       </Row>
       <Row className="cards-body">
-        <VaccinationCityGroup fetchState={fetchState} cities={cities} />
+        <Col span={24}>
+          <VaccinationCityGroup
+            itemsInRow={5}
+            isLoading={isLoading}
+            filter={filter}
+          />
+        </Col>
       </Row>
     </React.Fragment>
   )
