@@ -1,14 +1,14 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 
-import vaccinationCentres from '../features/vaccinationCentres/vaccinationCentresSlice'
-import vaccinationGroups from '../features/vaccinationCities/vaccinationCitiesSlice'
+import vaccinationCentres from "../features/vaccinationCentres/vaccinationCentresSlice";
+import vaccinationGroups from "../features/vaccinationCities/vaccinationCitiesSlice";
 
 export const store = configureStore({
   reducer: {
     vaccinationCentres,
-    vaccinationGroups
-  }
-})
+    vaccinationGroups,
+  },
+});
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

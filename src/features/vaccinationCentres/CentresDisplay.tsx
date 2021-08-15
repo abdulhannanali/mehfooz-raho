@@ -7,7 +7,6 @@ import {
   selectVaccinationCentres,
 } from "./vaccinationCentresSlice";
 
-
 let isFetchedOnce = false;
 
 export default function CentresDisplay() {

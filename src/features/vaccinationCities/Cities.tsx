@@ -1,16 +1,12 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { useParams, useRouteMatch } from 'react-router-dom'
+import { useParams, useRouteMatch } from "react-router-dom";
 
+import { fetchCitiesWithCountThunk, selectors } from "./vaccinationCitiesSlice";
 
-import {
-  fetchCitiesWithCountThunk,
-  selectors
-} from "./vaccinationCitiesSlice";
-
-import { FetchState } from "../types";
+import { FetchState } from "../FetchState";
 import React from "react";
 import VaccinationCityGroup from "./VaccionationCityGroup";
-import FetchError from "../../FetchError";
+import { ResultFetchError } from "../../ResultComponents";
 import { Filter } from "./FilterType";
 
 import { Row, Col, Typography } from "antd";
@@ -18,7 +14,7 @@ import { Row, Col, Typography } from "antd";
 type CityParams = {
   province: string;
   district?: string;
-}
+};
 
 /**
  * Cities is a component that provides all the cities
@@ -38,36 +34,40 @@ type CityParams = {
  *
  */
 export default function Cities() {
-  const dispatch = useAppDispatch()
-  
-  const fetchState = useAppSelector(selectors.selectFetchState)
-  const isLoading = fetchState === FetchState.pending
-  const isRejected = fetchState === FetchState.rejected
-  
+  const dispatch = useAppDispatch();
+
+  const fetchState = useAppSelector(selectors.selectFetchState);
+  const isLoading = fetchState === FetchState.pending;
+  const isRejected = fetchState === FetchState.rejected;
+
   const { district, province } = useParams<{
     province?: string;
     district?: string;
-  }>()
+  }>();
 
-  const filter: Filter | undefined = province ? { district, province } : undefined
-  
-  const title = filter !== undefined ?
-    `Cities in ${district ? district + '/' : ''}${province}` :
-    `All Cities`
-  
+  const filter: Filter | undefined = province
+    ? { district, province }
+    : undefined;
+
+  const title =
+    filter !== undefined
+      ? `Cities in ${district ? district + "/" : ""}${province}`
+      : `All Cities`;
+
   if (isRejected) {
-    return <FetchError />
+    return <ResultFetchError />;
   }
 
-  
   if (fetchState === FetchState.idle) {
-    dispatch(fetchCitiesWithCountThunk())
+    dispatch(fetchCitiesWithCountThunk());
   }
-  
+
   return (
     <React.Fragment>
       <Row className="pageHeader">
-        <Col span={24}><Typography.Title>{title}</Typography.Title></Col>
+        <Col span={24}>
+          <Typography.Title>{title}</Typography.Title>
+        </Col>
       </Row>
       <Row className="cards-body">
         <Col span={24}>
@@ -79,6 +79,5 @@ export default function Cities() {
         </Col>
       </Row>
     </React.Fragment>
-  )
+  );
 }
-

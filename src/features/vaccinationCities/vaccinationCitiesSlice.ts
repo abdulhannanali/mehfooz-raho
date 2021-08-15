@@ -14,7 +14,7 @@ import {
 import { RootState } from "../../app/store";
 
 import { isDistrictFilter, isProvinceFilter, Filter } from "./FilterType";
-import { FetchState } from "../types";
+import { FetchState } from "../FetchState";
 
 const groupsAdapter: EntityAdapter<CityWithCount> = createEntityAdapter({});
 
@@ -22,7 +22,6 @@ export const fetchCitiesWithCountThunk = createAsyncThunk(
   "vaccinationGroups/fetchCitiesWithCount",
   () => fetchCitiesWithCount()
 );
-
 
 const groupsSlice = createSlice({
   name: "vaccinationGroups",
@@ -51,7 +50,6 @@ const groupsSlice = createSlice({
   },
 });
 
-
 export const selectors = {
   selectVaccinationGroups: (state: RootState) => state.vaccinationGroups,
   selectFetchState: (state: RootState) =>
@@ -60,30 +58,29 @@ export const selectors = {
 
 export const groupsSelectors = groupsAdapter.getSelectors(
   selectors.selectVaccinationGroups
-)
+);
 
 export const selectCitiesIdsByFilter = createSelector(
-  [
-    groupsSelectors.selectEntities,
-    (_: any, filter: Filter) => filter,
-  ],
+  [groupsSelectors.selectEntities, (_: any, filter: Filter) => filter],
   (entities, filter) => {
-    return Object.entries(entities).filter(([key, cityWithCount]) => {
-      if (cityWithCount && typeof key === 'string') {
-        if (isDistrictFilter(filter)) {
-          return (
-            cityWithCount.city.district === filter.district &&
-            cityWithCount.city.province === filter.province
-          )
-        }
-        
-        if (isProvinceFilter(filter)) {
-          return cityWithCount.city.province === filter.province
-        }
-      }
+    return Object.entries(entities)
+      .filter(([key, cityWithCount]) => {
+        if (cityWithCount && typeof key === "string") {
+          if (isDistrictFilter(filter)) {
+            return (
+              cityWithCount.city.district === filter.district &&
+              cityWithCount.city.province === filter.province
+            );
+          }
 
-      return false
-    }).map(([key]) => key)
+          if (isProvinceFilter(filter)) {
+            return cityWithCount.city.province === filter.province;
+          }
+        }
+
+        return false;
+      })
+      .map(([key]) => key);
   }
 );
 

@@ -10,7 +10,11 @@ const vaccinatedPakistanSpans = [
   "ويڪسين ٿيل پاڪستان",
   "ویکسین شدہ پاکستان۔",
   "پاکستان واکسینه شده است",
-].map((text) => <span className="transitioningText"><Typography.Title>{text}</Typography.Title></span>);
+].map((text) => (
+  <span className="transitioningText">
+    <Typography.Title>{text}</Typography.Title>
+  </span>
+));
 
 export default function Home() {
   return (

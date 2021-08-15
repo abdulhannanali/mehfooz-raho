@@ -3,6 +3,7 @@ import React from "react";
 import VaccinationCentreCard from "./VaccinationCentreCard";
 import { VaccinationCentre } from "../../api/vaccinationsFakeAPI";
 import { splitEvery } from "ramda";
+import * as skeletonData from "./skeletonData";
 
 function VaccinationCentresList(props: {
   centres: VaccinationCentre[];
@@ -32,7 +33,13 @@ function CardRows(props: {
       if (props.isLoading || !content) {
         columnId = "null-" + i + "" + j;
         rowId += columnId;
-        card = <VaccinationCentreCard key={0} isLoading={true} />;
+        card = (
+          <VaccinationCentreCard
+            key={j}
+            isLoading={true}
+            vaccinationCentre={skeletonData.getVaccinationCentre()}
+          />
+        );
       } else {
         columnId = content.id;
         rowId += content.id + "_";

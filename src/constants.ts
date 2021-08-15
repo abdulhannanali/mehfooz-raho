@@ -1,1 +1,2 @@
-export const GOOGLE_CLIENT_SIDE_API_KEY = ''
+export const GOOGLE_CLIENT_SIDE_API_KEY =
+  "AIzaSyBXFNPHqZgW_y4CO8EKsOwbSuQ2zh2U5Ds";

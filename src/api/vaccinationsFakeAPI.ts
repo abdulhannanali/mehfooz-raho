@@ -1,12 +1,10 @@
-import faker from 'faker'
-import { nanoid } from '@reduxjs/toolkit'
-import promiseTimeout from 'promise-timeout'
-
-export enum VaccinationDesignation {
-  all,
-  citizens,
-  healthCareWorkers,
-}
+import faker from "faker";
+import { nanoid } from "@reduxjs/toolkit";
+import promiseTimeout from "promise-timeout";
+import {
+  vaccineDesignations,
+  VaccineDesignation,
+} from "../features/vaccinationCentres/vaccineDesignations";
 
 export interface VaccinationCentre {
   id: string;
@@ -16,8 +14,7 @@ export interface VaccinationCentre {
   address: string;
   contact: string;
   name: string;
-  designation: VaccinationDesignation;
-  
+  designation: VaccineDesignation;
   location: {
     latitude: string;
     longitude: string;
@@ -30,28 +27,28 @@ export interface VaccinationCity {
   tehsil: string;
 }
 
-function generateFakeVaccinationCentres () {
-  const provinces = 5
-  const districtsPerProvinces = 5
-  const tehsilsPerProvinces = 10
-  const healthCareCentersPerTehsils = 10
+function generateFakeVaccinationCentres() {
+  const provinces = 5;
+  const districtsPerProvinces = 5;
+  const tehsilsPerProvinces = 10;
+  const healthCareCentersPerTehsils = 10;
 
-  const healthCareCenters: VaccinationCentre[] = []
+  const healthCareCenters: VaccinationCentre[] = [];
 
   Array(provinces)
     .fill(0)
     .map((_, i) => {
-      const provinceName = faker.address.state()
+      const provinceName = faker.address.state();
       return Array(districtsPerProvinces)
         .fill(0)
         .map((_, j) => {
-          const districtName = faker.address.county()
+          const districtName = faker.address.county();
           return new Array(tehsilsPerProvinces).fill(0).map((_, k) => {
-            const tehsilName = faker.address.city()
+            const tehsilName = faker.address.city();
             return new Array(healthCareCentersPerTehsils)
               .fill(0)
               .map((_, k) => {
-                const healthCareCentreName = faker.company.companyName()
+                const healthCareCentreName = faker.company.companyName();
 
                 healthCareCenters.push({
                   id: nanoid(),
@@ -62,70 +59,68 @@ function generateFakeVaccinationCentres () {
                   contact: faker.phone.phoneNumber(),
                   name: healthCareCentreName,
                   designation: [
-                    VaccinationDesignation.all,
-                    VaccinationDesignation.healthCareWorkers,
-                    VaccinationDesignation.citizens
+                    vaccineDesignations.all,
+                    vaccineDesignations.citizens,
+                    vaccineDesignations.healthCareWorkers,
                   ][Math.floor(Math.random() * 3)],
                   location: {
                     latitude: faker.address.latitude(),
                     longitude: faker.address.longitude(),
-                  }
-                })
-              })
-          })
-        })
-    })
+                  },
+                });
+              });
+          });
+        });
+    });
 
-  return healthCareCenters
+  return healthCareCenters;
 }
 
 const vaccinationCentres: VaccinationCentre[] =
-  generateFakeVaccinationCentres()
+  generateFakeVaccinationCentres();
 
-export function fetchVaccinationCentres (): Promise<VaccinationCentre[]> {
+export function fetchVaccinationCentres(): Promise<VaccinationCentre[]> {
   return new Promise(function (resolve) {
-    setTimeout(function () {
-      resolve(vaccinationCentres)
-    }, 4000)
-  })
+    resolve(vaccinationCentres);
+  });
 }
 
-export async function searchVaccinationCentres (searchString: string) {
+export async function searchVaccinationCentres(searchString: string) {
   return vaccinationCentres.filter((centre) => {
     for (const value of Object.values(centre)) {
       if (searchString.match(value) !== null) {
-        return true
+        return true;
       }
     }
 
-    return false
-  })
+    return false;
+  });
 }
 
-export async function getVaccinationCentreFullInformation (
+export async function getVaccinationCentreFullInformation(
   vaccinationCentreId: string
 ) {
   for (const centre of vaccinationCentres) {
     if (centre.id === vaccinationCentreId) {
-      return centre
+      return centre;
     }
   }
 }
 
-function getCity (vaccinationCentre: VaccinationCentre): VaccinationCity {
+function getCity(vaccinationCentre: VaccinationCentre): VaccinationCity {
   return {
     district: vaccinationCentre.district,
     tehsil: vaccinationCentre.tehsil,
-    province: vaccinationCentre.province
-  }
+    province: vaccinationCentre.province,
+  };
 }
 
-function isCityEqual (cityA: VaccinationCity, cityB: VaccinationCity): boolean {
+function isCityEqual(cityA: VaccinationCity, cityB: VaccinationCity): boolean {
   return (
     cityA.province === cityB.province &&
     cityA.district === cityB.district &&
     cityA.tehsil === cityB.tehsil
-  )
+  );
 }
 
 export interface CityWithCount {
@@ -134,7 +129,7 @@ export interface CityWithCount {
   id: string;
 }
 
-export async function fetchCitiesWithCount (): Promise<CityWithCount[]> {
+export async function fetchCitiesWithCount(): Promise<CityWithCount[]> {
   const x = vaccinationCentres
     .reduce(
       (
@@ -143,28 +138,28 @@ export async function fetchCitiesWithCount (): Promise<CityWithCount[]> {
       ) => {
         const cityGroup = groupsByCities.find((cityGroup) =>
           isCityEqual(cityGroup[0], vaccinationCentre)
-        )
+        );
 
         if (cityGroup) {
-          cityGroup.push(vaccinationCentre)
+          cityGroup.push(vaccinationCentre);
         } else {
-          groupsByCities.push([vaccinationCentre])
+          groupsByCities.push([vaccinationCentre]);
         }
 
-        return groupsByCities
+        return groupsByCities;
       },
       []
     )
     .map((cityGroup) => ({
       id: getCityId(cityGroup[0]),
       city: getCity(cityGroup[0]),
-      count: cityGroup.length
-    }))
+      count: cityGroup.length,
+    }));
 
-    await new Promise(resolve => setTimeout(resolve, 10000))
-    return x
+  await new Promise((resolve) => setTimeout(resolve, 10000));
+  return x;
 }
 
-function getCityId (city: VaccinationCity) {
-  return `${city.province}/${city.district}/${city.tehsil}`
+function getCityId(city: VaccinationCity) {
+  return `${city.province}/${city.district}/${city.tehsil}`;
 }
