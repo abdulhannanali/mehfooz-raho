@@ -20,7 +20,8 @@ function App() {
     <Layout className="layout">
       <Helmet>
         <meta property="og:url" content={window.location.href} />
-        <meta property="og:image" content="https://i.imgur.com/625Z5h1.jpg" />
+        <meta property="og:description" content="Find a vaccination near you in Pakistan!" />
+        <meta property="og:image" content="https://i.imgur.com/VuWBhsk.jpg" />
       </Helmet>
       <Layout.Header style={{ margin: '10px 0 10px 0'}}>
         <Row justify="center">
