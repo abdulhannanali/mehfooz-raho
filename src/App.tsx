@@ -20,10 +20,13 @@ function App() {
     <Layout className="layout">
       <Helmet>
         <meta property="og:url" content={window.location.href} />
-        <meta property="og:description" content="Find a vaccination near you in Pakistan!" />
+        <meta
+          property="og:description"
+          content="Find a vaccination near you in Pakistan!"
+        />
         <meta property="og:image" content="https://i.imgur.com/VuWBhsk.jpg" />
       </Helmet>
-      <Layout.Header style={{ margin: '10px 0 10px 0'}}>
+      <Layout.Header style={{ margin: "10px 0 10px 0" }}>
         <Row justify="center">
           <Col className="gutter-row" xs={24}>
             <Logo></Logo>
@@ -42,12 +45,12 @@ function App() {
           />
         </Switch>
       </Layout.Content>
-      <Layout.Footer style={{ marginTop: '30px'}}>
+      <Layout.Footer style={{ marginTop: "30px" }}>
         <Row justify="center">
           <Col xs={24}>
-            <Typography.Title level={5} style={{textAlign: 'center'}}>
-              Made with <HeartFilled twoToneColor={["red", "red"]} /> 
-            </Typography.Title>  
+            <Typography.Title level={5} style={{ textAlign: "center" }}>
+              Made with <HeartFilled twoToneColor={["red", "red"]} />
+            </Typography.Title>
           </Col>
         </Row>
       </Layout.Footer>

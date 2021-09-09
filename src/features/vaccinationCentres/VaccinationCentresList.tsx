@@ -9,12 +9,12 @@ export default function VaccinationCentresList(props: { centres: string[] }) {
       <Col xs={24} lg={12} key={centre}>
         <VaccinationCentreCard id={centre} />
       </Col>
-    )
+    );
   });
 
   return (
     <React.Fragment>
-      <GutterRow style={{margin: '0 auto'}}>{cards}</GutterRow>
+      <GutterRow style={{ margin: "0 auto" }}>{cards}</GutterRow>
     </React.Fragment>
   );
 }

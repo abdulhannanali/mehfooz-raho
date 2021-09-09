@@ -3,7 +3,6 @@ import { PaginationResponse } from "../../../lib/functionsClient";
 import { FetchState } from "../../FetchState";
 import { VaccineDesignation } from "../../../vaccineDesignations/vaccineDesignations";
 
-
 export interface VaccinationCentresFilter {
   id?: string;
   district?: string;

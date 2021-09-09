@@ -5,7 +5,12 @@ import { uniqBy } from "ramda";
 import { vaccineDesignations } from "../../vaccineDesignations";
 import { ChangeEvent, useEffect, useState } from "react";
 
-import { selectDistricts, selectProvinces, selectFetchState, getFilterDataThunk } from './slice'
+import {
+  selectDistricts,
+  selectProvinces,
+  selectFetchState,
+  getFilterDataThunk,
+} from "./slice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { FetchState } from "../FetchState";
 import { VaccinationCentresFilter } from "../vaccinationCentres/slice/types";
@@ -25,30 +30,37 @@ export interface CentresFilterProps {
  * Centres Filter are available for better utilization
  */
 export default function CentresFilter(props: CentresFilterProps) {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const { onChangeFilter, currentFilter } = props;
 
-    const fetchState = useAppSelector(selectFetchState)
-    let districts = useAppSelector(selectDistricts)
-    let provinces = useAppSelector(selectProvinces)
+  const fetchState = useAppSelector(selectFetchState);
+  let districts = useAppSelector(selectDistricts);
+  let provinces = useAppSelector(selectProvinces);
 
-    if (fetchState === FetchState.idle) {
-      dispatch(getFilterDataThunk())
-    }
-      
-    if (
-      districts === undefined ||
-      provinces === undefined || 
-      (fetchState === FetchState.pending || fetchState === FetchState.idle)
-    ) {
-        districts = []
-        provinces = []
-    } 
+  if (fetchState === FetchState.idle) {
+    dispatch(getFilterDataThunk());
+  }
 
-  const [initialFireCompleted, setInitialFire] = useState<boolean>(false)
-  const [district, setDistrict] = useState<string | undefined>(currentFilter.district);
-  const [province, setProvince] = useState<string | undefined>(currentFilter.province);
-  const [text, setText] = useState<string | undefined>(currentFilter.filterText);
+  if (
+    districts === undefined ||
+    provinces === undefined ||
+    fetchState === FetchState.pending ||
+    fetchState === FetchState.idle
+  ) {
+    districts = [];
+    provinces = [];
+  }
+
+  const [initialFireCompleted, setInitialFire] = useState<boolean>(false);
+  const [district, setDistrict] = useState<string | undefined>(
+    currentFilter.district
+  );
+  const [province, setProvince] = useState<string | undefined>(
+    currentFilter.province
+  );
+  const [text, setText] = useState<string | undefined>(
+    currentFilter.filterText
+  );
 
   useEffect(() => {
     if (initialFireCompleted) {
@@ -59,7 +71,7 @@ export default function CentresFilter(props: CentresFilterProps) {
       });
     }
 
-    setInitialFire(true)
+    setInitialFire(true);
   }, [district, province, text]);
 
   function onSelectDistrict(value: string) {
@@ -75,10 +87,8 @@ export default function CentresFilter(props: CentresFilterProps) {
   }
 
   const filterSelectStyle = {
-    width: '100%'
-
-
-  }
+    width: "100%",
+  };
 
   return (
     <GutterRow gutter={[8, 12]}>
@@ -102,7 +112,8 @@ export default function CentresFilter(props: CentresFilterProps) {
           {districts?.map((district) => (
             <Select.Option key={district} value={district}>
               {district}
-         ''   </Select.Option>
+              ''{" "}
+            </Select.Option>
           ))}
         </Select>
       </Col>

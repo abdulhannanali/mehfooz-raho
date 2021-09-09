@@ -1,11 +1,10 @@
 .layout {
   padding: 0 20px;
-
 }
 
 .home .hero .hero-image {
   /* background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.9)), */
-    /* url(https://www.jhsph.edu/sebin/z/z/SARS-CoV-2-vaccine-820x440.jpg); */
+  /* url(https://www.jhsph.edu/sebin/z/z/SARS-CoV-2-vaccine-820x440.jpg); */
   background-size: cover;
   background-position: center;
   position: relative;
@@ -24,8 +23,6 @@
   padding: 0.01em;
   color: white;
 }
-
-
 
 @media only screen and (max-width: 425px) {
   .textTransition h1 {

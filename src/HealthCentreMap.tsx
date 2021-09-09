@@ -31,7 +31,10 @@ function HealthCentreMap(props: HealthCentreMapProps) {
         ></iframe>
       </Col>
       <Col xs={24}>
-        <Alert message="Confirm location once again through your local sources!" type="warning"/>
+        <Alert
+          message="Confirm location once again through your local sources!"
+          type="warning"
+        />
       </Col>
     </Row>
   );

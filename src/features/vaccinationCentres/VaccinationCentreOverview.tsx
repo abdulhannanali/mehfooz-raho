@@ -30,15 +30,16 @@ function TitleTextMarkup(props: {
 }
 
 function VaccinationCentreInformationDiv(props: VaccinationCentre) {
-  const { designation, province, district, tehsil, address, contact } = props.baseVaccinationCentre;
+  const { designation, province, district, tehsil, address, contact } =
+    props.baseVaccinationCentre;
 
-  const titleTextTuples: [string, string|undefined][] = [
+  const titleTextTuples: [string, string | undefined][] = [
     ["Province", province],
     ["District", district],
     ["Tehsil", tehsil],
     ["Address", address],
-    ["Contact", contact]
-  ]
+    ["Contact", contact],
+  ];
 
   return (
     <div className="vaccinationCentreInformation">
@@ -48,10 +49,12 @@ function VaccinationCentreInformationDiv(props: VaccinationCentre) {
       <Row gutter={[10, 30]}>
         {titleTextTuples.map(([title, value]) => {
           if (title !== undefined && value !== undefined) {
-            return <TitleTextMarkup title={title} text={value} titleLevel={4} />
+            return (
+              <TitleTextMarkup title={title} text={value} titleLevel={4} />
+            );
           }
 
-          return null
+          return null;
         })}
       </Row>
     </div>
@@ -62,20 +65,21 @@ export default function VaccinationCentreOverview(props: {}) {
   const params = useParams<{ centreId: string }>();
 
   const currentLocation = window.location.href;
-  const result = useVaccinationCentre(params.centreId)
+  const result = useVaccinationCentre(params.centreId);
 
   if (result.isLoading === true) {
     return <Skeleton paragraph={{ rows: 5 }} active={true} />;
   }
 
-  if (result.error || (result.isLoading === false && result.vaccinationCentre === undefined)) {
+  if (
+    result.error ||
+    (result.isLoading === false && result.vaccinationCentre === undefined)
+  ) {
     return ResultEntityNotFound({ targetEntity: "Vaccination Centre" });
   }
 
-  const vaccinationCentre = result.vaccinationCentre as VaccinationCentre
-  const baseVaccinationCentre = vaccinationCentre.baseVaccinationCentre
-
-
+  const vaccinationCentre = result.vaccinationCentre as VaccinationCentre;
+  const baseVaccinationCentre = vaccinationCentre.baseVaccinationCentre;
 
   const linkTitle = `Vaccination Centre - ${baseVaccinationCentre.name}`;
   const linkDescription = `Get vaccinated from ${baseVaccinationCentre.name} in ${baseVaccinationCentre.tehsil}`;
@@ -99,7 +103,7 @@ export default function VaccinationCentreOverview(props: {}) {
 
       <GutterRow>
         <Col xs={24} md={12}>
-          <VaccinationCentreInformationDiv {...vaccinationCentre}/>
+          <VaccinationCentreInformationDiv {...vaccinationCentre} />
           <Alert type="info" message="Confirm validity through your sources!" />
         </Col>
         <Col xs={24} md={12}>

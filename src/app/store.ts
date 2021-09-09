@@ -2,7 +2,7 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 
 import vaccinationCentres from "../features/vaccinationCentres/slice";
 import vaccinationGroups from "../features/vaccinationCities/vaccinationCitiesSlice";
-import filter from '../features/filter/slice'
+import filter from "../features/filter/slice";
 
 export const store = configureStore({
   reducer: {

@@ -8,17 +8,17 @@ export default function VaccineDesignationTag(props: {
 
   return (
     <Tooltip
-        title={designation.text}
+      title={designation.text}
+      color={designation.labelColor}
+      placement="bottom"
+    >
+      <Tag
+        style={{ fontSize: "1em" }}
         color={designation.labelColor}
-        placement="bottom"
+        icon={<designation.icon />}
       >
-        <Tag
-          style={{ fontSize: "1em" }}
-          color={designation.labelColor}
-          icon={<designation.icon />}
-        >
-          {designation.label}
-        </Tag>
-      </Tooltip>
+        {designation.label}
+      </Tag>
+    </Tooltip>
   );
 }

@@ -1,1 +1,1 @@
-export { default as FilterSection } from './Filter'
+export { default as FilterSection } from "./Filter";

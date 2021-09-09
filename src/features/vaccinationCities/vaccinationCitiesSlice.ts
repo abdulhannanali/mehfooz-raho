@@ -26,7 +26,7 @@ const groupsSlice = createSlice({
 
   initialState: groupsAdapter.getInitialState({
     fetchState: FetchState.idle,
-    error: <SerializedError | undefined>undefined
+    error: <SerializedError | undefined>undefined,
   }),
 
   reducers: {},
@@ -59,6 +59,5 @@ export const selectors = {
 export const groupsSelectors = groupsAdapter.getSelectors(
   selectors.selectVaccinationGroups
 );
-
 
 export default groupsSlice.reducer;

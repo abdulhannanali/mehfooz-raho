@@ -4,9 +4,7 @@ import { Card, Col, Statistic, Skeleton, Tag, Tooltip } from "antd";
 
 import { PlusCircleTwoTone } from "@ant-design/icons";
 
-import {
-  groupsSelectors,
-} from "./vaccinationCitiesSlice";
+import { groupsSelectors } from "./vaccinationCitiesSlice";
 import { RootState } from "../../app/store";
 import { useAppSelector } from "../../app/hooks";
 
@@ -42,13 +40,15 @@ export default function VaccinationCityGroup(props: VaccinationCityProps) {
 }
 
 function VaccinationCityGroupItem(props: { id: EntityId; isLoading: boolean }) {
-  let entity: VaccinationCity | undefined = useAppSelector((state: RootState) => {
-    if ("id" in props) {
-      return groupsSelectors.selectById(state, props.id);
-    }
+  let entity: VaccinationCity | undefined = useAppSelector(
+    (state: RootState) => {
+      if ("id" in props) {
+        return groupsSelectors.selectById(state, props.id);
+      }
 
-    return undefined;
-  });
+      return undefined;
+    }
+  );
 
   if (props.isLoading) {
     entity = getLoadingEntity();
@@ -72,7 +72,7 @@ function VaccinationCityGroupItem(props: { id: EntityId; isLoading: boolean }) {
                     <Tag color="red">{province?.toLowerCase()}</Tag>
                   </Link>
                   <Link to={`/district/${district?.toLowerCase()}`}>
-                      <Tag color="blue">{district?.toLowerCase()}</Tag>
+                    <Tag color="blue">{district?.toLowerCase()}</Tag>
                   </Link>
                 </div>
                 <Statistic

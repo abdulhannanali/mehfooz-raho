@@ -58,10 +58,7 @@ export default function Cities() {
       </Row>
       <Row className="cards-body">
         <Col span={24}>
-          <VaccinationCityGroup
-            itemsInRow={5}
-            isLoading={isLoading}
-          />
+          <VaccinationCityGroup itemsInRow={5} isLoading={isLoading} />
         </Col>
       </Row>
     </React.Fragment>
