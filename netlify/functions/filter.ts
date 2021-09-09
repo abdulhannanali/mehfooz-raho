@@ -1,6 +1,7 @@
 import { Handler } from '@netlify/functions'
 import { getFilterData } from '@abdulhannanali/vaccination-centres-parser'
-import { sortBy } from 'ramda'
+import { uniq } from 'ramda'
+import { friendlyNameConverter } from './lib/nameResolver'
 
 const filterData = getSortedFilterData()
 
@@ -19,13 +20,19 @@ function getSortedFilterData () {
     const filterData = getFilterData()
 
     return {
-        districts: sortByLocaleComparison(filterData.districts),
-        designations: sortByLocaleComparison(filterData.designations),
-        tehsils: sortByLocaleComparison(filterData.tehsils),
-        provinces: sortByLocaleComparison(filterData.provinces)
+        districts: uniq(sortByLocaleComparison(filterData.districts).map(friendlyNameConverter)),
+        designations: uniq(sortByLocaleComparison(filterData.designations).map(friendlyNameConverter)),
+        tehsils: uniq(sortByLocaleComparison(filterData.tehsils).map(friendlyNameConverter)),
+        provinces: uniq(sortByLocaleComparison(filterData.provinces).map(friendlyNameConverter))
     }
 }
 
 function sortByLocaleComparison (array: string[]) {
-    return array.sort((a, b) => a.localeCompare(b))
+    return array.sort((a, b) => a.localeCompare(b)).filter(b => {
+        if (b) {
+            return b.match(/[0-9]+/i) === null
+        }
+
+        return false
+    })
 }

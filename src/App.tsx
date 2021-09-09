@@ -5,7 +5,6 @@ import { Route, Switch, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 import Home from "./Home/";
 
-import ReactGA from 'react-ga'
 import "./App.css";
 import AllCentresDisplay from "./features/vaccinationCentres/CentresDisplay";
 import Cities from "./features/vaccinationCities/Cities";
@@ -17,12 +16,6 @@ const IS_DARK_DEFAULT =
   "matchMedia" in window && window.matchMedia("(prefers-color-scheme: dark)");
 
 function App() {
-  const location = useLocation()
-  
-  useEffect(() => {
-    ReactGA.pageview(location.pathname + location.search)
-  }, [location.pathname, location.search])
-
 
   return (
     <Layout className="layout">
@@ -58,11 +51,10 @@ function App() {
         <Row justify="center">
           <Col xs={24}>
             <Typography.Title level={5} style={{ textAlign: "center" }}>
-              Made with <HeartFilled twoToneColor={["red", "red"]} />
+              Made with <HeartFilled twoToneColor={["red", "red"]} /> using Open Source
             </Typography.Title>
             <Typography.Paragraph style={{ textAlign: 'center'}}>
-              The information might lack reliability, so please use your own means too for 
-              a complete assurance of it's authenticity. 
+              The information might be outdated or lack accuracy, please confirm through your own means as well, before acting on it.
             </Typography.Paragraph>
           </Col>
         </Row>

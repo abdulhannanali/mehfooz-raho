@@ -109,7 +109,6 @@ export default function CentresFilter(props: CentresFilterProps) {
           {districts?.map((district) => (
             <Select.Option key={district} value={district}>
               {district}
-              ''{" "}
             </Select.Option>
           ))}
         </Select>

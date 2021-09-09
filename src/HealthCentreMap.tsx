@@ -1,10 +1,10 @@
 import { VaccinationCentre } from "@abdulhannanali/vaccination-centres-parser";
-import { Alert, Col, Row, Typography } from "antd";
+import { Alert, Col, Row, Image, Typography } from "antd";
 import { stringify } from "querystring";
 import { GOOGLE_CLIENT_SIDE_API_KEY } from "./constants";
 
 const baseURL = "https://www.google.com/maps/embed/v1";
-const mapMode = "search";
+const mapMode = "place";
 const defaultRegion = "pk";
 
 interface HealthCentreMapProps {
@@ -12,11 +12,19 @@ interface HealthCentreMapProps {
 }
 
 function HealthCentreMap(props: HealthCentreMapProps) {
+  const placeId = props.vaccinationCentre.googlePlacesResponse[0]?.place_id
+  
+  if (!placeId) {
+    return <NotFoundMap />
+  }
+
   const queryString = stringify({
     key: GOOGLE_CLIENT_SIDE_API_KEY,
-    region: defaultRegion,
-    q: props.vaccinationCentre.googlePlacesResponse[0]?.name,
+    q: `place_id:${encodeURIComponent(placeId)}`,
+    region: defaultRegion
   });
+
+
 
   const src = `${baseURL}/${mapMode}?${queryString}`;
 
@@ -32,12 +40,23 @@ function HealthCentreMap(props: HealthCentreMapProps) {
       </Col>
       <Col xs={24}>
         <Alert
-          message="Confirm location once again through your local sources!"
+          message="Confirm location once again through your local sources as this map is not verified as of now."
           type="warning"
         />
       </Col>
     </Row>
   );
+}
+
+
+function NotFoundMap () {
+  return (
+    <Row>
+      <Col xs={24} style={{position:'relative', textAlign: 'center'}}>
+        <Typography.Title level={5}>Map Not Found For This Centre</Typography.Title>
+      </Col>
+    </Row>
+  )
 }
 
 export default HealthCentreMap;

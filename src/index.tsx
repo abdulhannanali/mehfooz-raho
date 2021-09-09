@@ -2,15 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
-import ReactGa from 'react-ga'
-// import * as Sentry from "@sentry/react";
 
 import { store } from "./app/store";
 import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import "antd/dist/antd.css";
-
-ReactGa.initialize('G-086BXQP034')
 
 ReactDOM.render(
   <React.StrictMode>

@@ -65,6 +65,7 @@ function filterCentres ({ district, province, tehsil, name }: FilterCriteria) {
 }
 
 
+
 function isMatching (arg: string, str: string): boolean {
     return str.toLowerCase().match(arg.toLowerCase()) !== null
 }

@@ -104,7 +104,8 @@ export default function VaccinationCentreOverview(props: {}) {
       <GutterRow>
         <Col xs={24} md={12}>
           <VaccinationCentreInformationDiv {...vaccinationCentre} />
-          <Alert type="info" message="Confirm validity through your sources!" />
+          <br />
+          <Alert type="info" message="The information here might be outdated." />
         </Col>
         <Col xs={24} md={12}>
           <HealthCentreMap vaccinationCentre={vaccinationCentre} />
