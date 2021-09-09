@@ -4,3 +4,6 @@
     autoLaunch = true
     publish = "public"
     targetPort = 3000
+
+[build.environment]
+  NPM_CONFIG_USERCONFIG = "./netlify/.npmrc"

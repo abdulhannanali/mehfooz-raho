@@ -1,8 +1,5 @@
-import { Col, Input, Select, Skeleton } from "antd";
+import { Col, Input, Select } from "antd";
 import GutterRow from "../../GutterRow";
-import { uniqBy } from "ramda";
-
-import { vaccineDesignations } from "../../vaccineDesignations";
 import { ChangeEvent, useEffect, useState } from "react";
 
 import {

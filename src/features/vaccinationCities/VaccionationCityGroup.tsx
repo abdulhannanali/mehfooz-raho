@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { Card, Col, Statistic, Skeleton, Tag, Tooltip } from "antd";
+import { Card, Col, Statistic, Skeleton, Tag } from "antd";
 
 import { PlusCircleTwoTone } from "@ant-design/icons";
 
@@ -18,8 +18,6 @@ type VaccinationCityProps = {
 };
 
 export default function VaccinationCityGroup(props: VaccinationCityProps) {
-  const { itemsInRow = 5 } = props;
-
   let ids = useAppSelector((state) => groupsSelectors.selectIds(state));
 
   if (props.isLoading) {

@@ -3,9 +3,7 @@ import {
   createSlice,
   createAsyncThunk,
   PayloadAction,
-  createSelector,
   EntityAdapter,
-  Dictionary,
   SerializedError,
 } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
@@ -26,7 +24,7 @@ const groupsSlice = createSlice({
 
   initialState: groupsAdapter.getInitialState({
     fetchState: FetchState.idle,
-    error: <SerializedError | undefined>undefined,
+    error: undefined as SerializedError | undefined,
   }),
 
   reducers: {},

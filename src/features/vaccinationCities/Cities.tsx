@@ -1,6 +1,4 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { useParams, useRouteMatch } from "react-router-dom";
-
 import { fetchCitiesWithCountThunk, selectors } from "./vaccinationCitiesSlice";
 
 import { FetchState } from "../FetchState";
