@@ -81,7 +81,25 @@ export default function Home() {
             </Card>
           </Col>
 
-          <Col xs={24}></Col>
+          <Col xs={24}>
+              <Card
+                title={
+                  <Typography.Title level={3}>
+                    About this Project <VaccineIcon />
+                  </Typography.Title>
+                }>
+                  <Typography.Paragraph>
+                    Learn about the source of information related to vaccination centres here,
+                    our data source and some disclaimers
+                  </Typography.Paragraph>
+                  <Link to="/about">
+                    <Button type="primary">
+                      Learn more about the project
+                    </Button>
+                  </Link>
+              </Card>
+
+          </Col>
         </Row>
       </div>
     </div>

@@ -1,5 +1,5 @@
 [dev]
-    command = "yarn run start"
+    command = "npm run start"
     framework = "#custom"
     autoLaunch = true
     publish = "public"

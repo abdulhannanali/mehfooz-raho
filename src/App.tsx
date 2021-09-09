@@ -1,21 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Layout, Menu, Row, Col, Typography } from "antd";
-import { Route, Link, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 
 import Logo from "./Logo";
 import Home from "./Home/";
 
+import ReactGA from 'react-ga'
 import "./App.css";
 import AllCentresDisplay from "./features/vaccinationCentres/CentresDisplay";
 import Cities from "./features/vaccinationCities/Cities";
 import VaccinationCentreOverview from "./features/vaccinationCentres/VaccinationCentreOverview";
 import { Helmet } from "react-helmet";
 import { HeartFilled } from "@ant-design/icons";
-
+import About from "./About";
 const IS_DARK_DEFAULT =
   "matchMedia" in window && window.matchMedia("(prefers-color-scheme: dark)");
 
 function App() {
+  const location = useLocation()
+  
+  useEffect(() => {
+    ReactGA.pageview(location.pathname + location.search)
+  }, [location.pathname, location.search])
+
+
   return (
     <Layout className="layout">
       <Helmet>
@@ -35,6 +43,7 @@ function App() {
       </Layout.Header>
       <Layout.Content className="layout-content">
         <Switch>
+          <Route exact path="/about" component={About} />
           <Route exact path="/" component={Home} />
           <Route exact path="/cities" component={Cities}></Route>
           <Route exact path="/centres" component={AllCentresDisplay}></Route>
@@ -51,6 +60,10 @@ function App() {
             <Typography.Title level={5} style={{ textAlign: "center" }}>
               Made with <HeartFilled twoToneColor={["red", "red"]} />
             </Typography.Title>
+            <Typography.Paragraph style={{ textAlign: 'center'}}>
+              The information might lack reliability, so please use your own means too for 
+              a complete assurance of it's authenticity. 
+            </Typography.Paragraph>
           </Col>
         </Row>
       </Layout.Footer>
