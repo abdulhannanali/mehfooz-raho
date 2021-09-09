@@ -95,7 +95,6 @@
     "workbox-webpack-plugin": "5.1.4"
   },
   "scripts": {
-    "preinstall": "bash scripts/preinstall.sh",
     "start": "node scripts/start.js",
     "lint": "eslint src/**/*.ts src/**/*.tsx",
     "lint:fix": "eslint src/**/*.ts src/**/*.tsx --fix",
