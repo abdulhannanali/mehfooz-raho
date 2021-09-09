@@ -7,3 +7,9 @@
 
 [build.environment]
   NPM_CONFIG_USERCONFIG = "./netlify/.npmrc"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = true
