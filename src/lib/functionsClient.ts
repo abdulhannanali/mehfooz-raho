@@ -15,8 +15,12 @@ export interface PaginationResponse<T> {
     elements: T[]
 }
 
+const baseURL = window.location.href.indexOf('localhost') !== -1 ?
+    'http://localhost:38791' :
+    '/.functions/'
+
 const client = axios.create({
-    baseURL: process.env.NODE_ENV ? 'http://localhost:38791/' : '/.functions/',
+    baseURL
 })
 
 
