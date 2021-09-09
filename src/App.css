@@ -2,17 +2,3 @@
   background: white !important;
   background-color: white !important;
 }
-
-.logo .logo-text {
-  font-size: 1.9em;
-}
-
-@media screen and (max-width: 820px) {
-  .logo .logo-text {
-    font-size: 1.1em;
-  }
-}
-
-.layout-content {
-  padding: 40px;
-}

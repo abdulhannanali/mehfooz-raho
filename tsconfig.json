@@ -20,7 +20,11 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
+
   "include": [
-    "src"
+    "src",
+  ],
+  "related": [
+    {"path": "node_modules/@abdulhannanali/vaccination-centres-parser"}
   ]
 }

@@ -1,34 +1,50 @@
-import { MedicineBoxFilled } from "@ant-design/icons";
-import { Card, Skeleton } from "antd";
+import { Card, Row, Skeleton, Tag, Typography } from "antd";
 import { Link } from "react-router-dom";
 import healthCareWorkerImage from "./avatars/healthcareworker.png";
-import { VaccinationCentre } from "../../api/vaccinationsFakeAPI";
-import getVaccinationCentreLink from "./getVaccinationCentreLink";
-import { VaccinationCentreProps } from "./types";
-import { getVaccinationCentre } from "./skeletonData";
+import React from "react";
+import VaccineDesignationTag from "../../vaccineDesignations/VaccineDesignationTag";
+import { VaccinationCentre } from "@abdulhannanali/vaccination-centres-parser";
+import { vaccineDesignations } from "../../vaccineDesignations";
+import { useAppSelector } from "../../app/hooks";
+import { vaccinationCentresSelectors } from "./slice";
 
-const loadingCardProps = {
-  title: "Sample Center Name",
-  description: "Address of the centre",
-};
 
 export default function VaccinationCentreCard(props: {
-  vaccinationCentre: VaccinationCentre;
-  isLoading: boolean;
+  id: string;
 }) {
-  const { isLoading, vaccinationCentre } = props;
+  const { id } = props;
+  const parsedDeisgnation = vaccineDesignations.all 
+  let vaccinationCentre = useAppSelector(state => vaccinationCentresSelectors.selectById(state.vaccinationCentres.centres, id))
+
+  if (!vaccinationCentre) {
+    return null
+  }
 
   return (
-    <Card>
-      <Skeleton loading={isLoading} avatar>
+    <Card hoverable>
         <Link to={getVaccinationCentreLink(vaccinationCentre)}>
           <Card.Meta
-            title={vaccinationCentre.name}
-            description={vaccinationCentre?.address}
-            avatar={<img width="45px" src={healthCareWorkerImage}></img>}
+            title={
+              <Typography.Title level={5}>
+                <span style={{'wordBreak': 'break-all', wordWrap: 'break-word', width: '100vw'}}>
+                  {vaccinationCentre.baseVaccinationCentre.name}
+                </span>
+              </Typography.Title>
+            }
+            description={
+              <React.Fragment>
+                  <VaccineDesignationTag designation={parsedDeisgnation} />
+                  <Tag color="cyan">{vaccinationCentre.baseVaccinationCentre.district}</Tag>
+                  <Tag color="pink">{vaccinationCentre.baseVaccinationCentre.tehsil}</Tag>
+              </React.Fragment>
+            }
           ></Card.Meta>
         </Link>
-      </Skeleton>
     </Card>
   );
+}
+
+
+function getVaccinationCentreLink (vaccinationCentre: VaccinationCentre) {
+  return `/centre/${vaccinationCentre.id}`
 }

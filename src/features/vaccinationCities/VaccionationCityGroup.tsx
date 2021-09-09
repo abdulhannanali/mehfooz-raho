@@ -1,32 +1,20 @@
 import { Link } from "react-router-dom";
 
-import {
-  Card,
-  Col,
-  Statistic,
-  Skeleton,
-  Tag,
-  Tooltip,
-} from "antd";
+import { Card, Col, Statistic, Skeleton, Tag, Tooltip } from "antd";
 
-import {
-  PlusCircleTwoTone,
-} from "@ant-design/icons";
+import { PlusCircleTwoTone } from "@ant-design/icons";
 
 import {
   groupsSelectors,
-  selectCitiesIdsByFilter,
 } from "./vaccinationCitiesSlice";
 import { RootState } from "../../app/store";
 import { useAppSelector } from "../../app/hooks";
 
-import { Filter } from "./FilterType";
-import { CityWithCount } from "../../api/vaccinationsFakeAPI";
 import { EntityId } from "@reduxjs/toolkit";
 import GutterRow from "../../GutterRow";
+import { VaccinationCity } from "@abdulhannanali/vaccination-centres-parser";
 
 type VaccinationCityProps = {
-  filter?: Filter;
   isLoading: boolean;
   itemsInRow: number;
 };
@@ -34,13 +22,7 @@ type VaccinationCityProps = {
 export default function VaccinationCityGroup(props: VaccinationCityProps) {
   const { itemsInRow = 5 } = props;
 
-  let ids = useAppSelector((state) => {
-    if (props.filter) {
-      return selectCitiesIdsByFilter(state, props.filter);
-    }
-
-    return groupsSelectors.selectIds(state);
-  });
+  let ids = useAppSelector((state) => groupsSelectors.selectIds(state));
 
   if (props.isLoading) {
     ids = new Array(100).fill("0");
@@ -60,7 +42,7 @@ export default function VaccinationCityGroup(props: VaccinationCityProps) {
 }
 
 function VaccinationCityGroupItem(props: { id: EntityId; isLoading: boolean }) {
-  let entity: CityWithCount | undefined = useAppSelector((state: RootState) => {
+  let entity: VaccinationCity | undefined = useAppSelector((state: RootState) => {
     if ("id" in props) {
       return groupsSelectors.selectById(state, props.id);
     }
@@ -72,10 +54,10 @@ function VaccinationCityGroupItem(props: { id: EntityId; isLoading: boolean }) {
     entity = getLoadingEntity();
   }
 
-  const tehsil = entity?.city.tehsil;
-  const province = entity?.city.province;
-  const district = entity?.city.district;
-  const count = entity?.count;
+  const tehsil = entity?.tehsil;
+  const province = entity?.province;
+  const district = entity?.district;
+  const count = entity?.vaccinationCentresCount;
 
   return (
     <Col xs={24} md={12} lg={6}>
@@ -84,17 +66,13 @@ function VaccinationCityGroupItem(props: { id: EntityId; isLoading: boolean }) {
           <Card.Meta
             title={tehsil}
             description={
-              <Link to={`/centres/${province}/${district}/${tehsil}/`}>
+              <Link to={`/centres?district=${district}&tehsil=${tehsil}`}>
                 <div className="additionalInformationTags">
                   <Link to={`/province/${province?.toLowerCase()}`}>
-                    <Tooltip title={"See other districts in " + province}>
-                      <Tag color="red">{province?.toLowerCase()}</Tag>
-                    </Tooltip>
+                    <Tag color="red">{province?.toLowerCase()}</Tag>
                   </Link>
                   <Link to={`/district/${district?.toLowerCase()}`}>
-                    <Tooltip title={"See other tehsils in " + district}>
                       <Tag color="blue">{district?.toLowerCase()}</Tag>
-                    </Tooltip>
                   </Link>
                 </div>
                 <Statistic
@@ -116,15 +94,12 @@ function VaccinationCityGroupItem(props: { id: EntityId; isLoading: boolean }) {
 /**
  * Gets the loading cards
  */
-function getLoadingEntity(): CityWithCount {
+function getLoadingEntity(): VaccinationCity {
   return {
-    city: {
-      tehsil: "Tehsil",
-      district: "District",
-      province: "Province",
-    },
-
-    count: 1000,
+    tehsil: "Tehsil",
+    district: "District",
+    province: "Province",
+    vaccinationCentresCount: 1000,
     id: "sampleId",
   };
 }

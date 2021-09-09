@@ -1,0 +1,6 @@
+[dev]
+    command = "npm run start"
+    framework = "#custom"
+    autoLaunch = true
+    publish = "public"
+    targetPort = 3000

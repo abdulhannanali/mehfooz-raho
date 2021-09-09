@@ -1,20 +1,18 @@
-import { MedicineBoxOutlined, FlagFilled } from "@ant-design/icons";
+import { Space, Typography } from "antd";
+import { Link } from "react-router-dom";
 
 export default function Logo() {
   return (
-    <div className="logo">
-      <a href="/">
-        <h1 className="logo-text">
-          <MedicineBoxOutlined
-            twoToneColor="#eb2f96"
-            style={{ display: "inline", color: "red" }}
-          />
-          <span className="text" style={{ margin: "0 10px" }}>
-            Health Centres Info PK
-          </span>
-          <FlagFilled style={{ color: "green" }} />
-        </h1>
-      </a>
-    </div>
+      <div>
+        <Link to="/">
+          <Typography.Title level={3} style={{
+            textAlign: 'center',
+          }}>
+            <span style={{backgroundColor: 'green', color: 'white'}}>Mehfooz</span>
+            <span> </span>
+            <span style={{backgroundColor: 'white', color: 'green'}}>Raho!</span>
+          </Typography.Title>
+        </Link>
+      </div>
   );
 }

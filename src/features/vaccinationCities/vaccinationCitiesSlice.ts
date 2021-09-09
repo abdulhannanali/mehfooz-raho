@@ -6,27 +6,27 @@ import {
   createSelector,
   EntityAdapter,
   Dictionary,
+  SerializedError,
 } from "@reduxjs/toolkit";
-import {
-  CityWithCount,
-  fetchCitiesWithCount,
-} from "../../api/vaccinationsFakeAPI";
 import { RootState } from "../../app/store";
 
-import { isDistrictFilter, isProvinceFilter, Filter } from "./FilterType";
 import { FetchState } from "../FetchState";
+import { getVaccinationCities } from "../../lib/functionsClient";
+import { VaccinationCity } from "@abdulhannanali/vaccination-centres-parser";
 
-const groupsAdapter: EntityAdapter<CityWithCount> = createEntityAdapter({});
+const groupsAdapter: EntityAdapter<VaccinationCity> = createEntityAdapter({});
 
 export const fetchCitiesWithCountThunk = createAsyncThunk(
   "vaccinationGroups/fetchCitiesWithCount",
-  () => fetchCitiesWithCount()
+  () => getVaccinationCities()
 );
 
 const groupsSlice = createSlice({
   name: "vaccinationGroups",
+
   initialState: groupsAdapter.getInitialState({
     fetchState: FetchState.idle,
+    error: <SerializedError | undefined>undefined
   }),
 
   reducers: {},
@@ -34,7 +34,7 @@ const groupsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       fetchCitiesWithCountThunk.fulfilled,
-      (state, action: PayloadAction<CityWithCount[]>) => {
+      (state, action: PayloadAction<VaccinationCity[]>) => {
         groupsAdapter.setAll(state, action);
         state.fetchState = FetchState.fulfilled;
       }
@@ -60,28 +60,5 @@ export const groupsSelectors = groupsAdapter.getSelectors(
   selectors.selectVaccinationGroups
 );
 
-export const selectCitiesIdsByFilter = createSelector(
-  [groupsSelectors.selectEntities, (_: any, filter: Filter) => filter],
-  (entities, filter) => {
-    return Object.entries(entities)
-      .filter(([key, cityWithCount]) => {
-        if (cityWithCount && typeof key === "string") {
-          if (isDistrictFilter(filter)) {
-            return (
-              cityWithCount.city.district === filter.district &&
-              cityWithCount.city.province === filter.province
-            );
-          }
-
-          if (isProvinceFilter(filter)) {
-            return cityWithCount.city.province === filter.province;
-          }
-        }
-
-        return false;
-      })
-      .map(([key]) => key);
-  }
-);
 
 export default groupsSlice.reducer;

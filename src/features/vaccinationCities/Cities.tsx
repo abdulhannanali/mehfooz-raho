@@ -7,7 +7,6 @@ import { FetchState } from "../FetchState";
 import React from "react";
 import VaccinationCityGroup from "./VaccionationCityGroup";
 import { ResultFetchError } from "../../ResultComponents";
-import { Filter } from "./FilterType";
 
 import { Row, Col, Typography } from "antd";
 
@@ -40,19 +39,7 @@ export default function Cities() {
   const isLoading = fetchState === FetchState.pending;
   const isRejected = fetchState === FetchState.rejected;
 
-  const { district, province } = useParams<{
-    province?: string;
-    district?: string;
-  }>();
-
-  const filter: Filter | undefined = province
-    ? { district, province }
-    : undefined;
-
-  const title =
-    filter !== undefined
-      ? `Cities in ${district ? district + "/" : ""}${province}`
-      : `All Cities`;
+  const title = `All Cities`;
 
   if (isRejected) {
     return <ResultFetchError />;
@@ -74,7 +61,6 @@ export default function Cities() {
           <VaccinationCityGroup
             itemsInRow={5}
             isLoading={isLoading}
-            filter={filter}
           />
         </Col>
       </Row>
