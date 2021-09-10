@@ -50,7 +50,8 @@ function App() {
         <Row justify="center">
           <Col xs={24}>
             <Typography.Title level={5} style={{ textAlign: "center" }}>
-              Made with <HeartFilled twoToneColor={["red", "red"]} /> using Open Source
+              Made with <HeartFilled twoToneColor={["red", "red"]} /> by <a href="https://github.com/abdulhannanali" target="_blank">Hannan Ali</a>. <br />
+              Hosted on <a href="https://netlify.com">Netlify</a>
             </Typography.Title>
             <Typography.Paragraph style={{ textAlign: 'center'}}>
               The information might be outdated or lack accuracy, please confirm through your own means as well, before acting on it.
