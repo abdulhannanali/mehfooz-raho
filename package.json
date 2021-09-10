@@ -2,7 +2,7 @@
   "name": "ui",
   "version": "1.0.0",
   "dependencies": {
-    "@abdulhannanali/vaccination-centres-parser": "^1.0.10",
+    "@abdulhannanali/vaccination-centres-parser": "^1.0.11",
     "@ant-design/icons": "^4.6.2",
     "@babel/core": "7.12.3",
     "@netlify/functions": "^0.7.2",
