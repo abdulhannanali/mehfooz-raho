@@ -8,7 +8,6 @@ import React from "react";
 import Share from "../../ShareCard";
 import { Helmet } from "react-helmet";
 import VaccineDesignationTag from "../../vaccineDesignations/VaccineDesignationTag";
-// import NearestVaccinationCenters from "./NearestVaccinationCeneters";
 import { useVaccinationCentre } from "./hooks";
 import { VaccinationCentre } from "@abdulhannanali/vaccination-centres-parser";
 import { vaccineDesignations } from "../../vaccineDesignations";

@@ -75,13 +75,23 @@ export default function CentresFilter(props: CentresFilterProps) {
     setDistrict(value);
   }
 
+  function onClearDistrict () {
+    setDistrict(undefined)
+  }
+
+
   function onSelectProvince(value: string) {
     setProvince(value);
+  }
+
+  function onClearProvince () {
+    setProvince(undefined)
   }
 
   function onChangeSearchText(event: ChangeEvent<HTMLInputElement>) {
     setText(event.target.value);
   }
+
 
   const filterSelectStyle = {
     width: "100%",
@@ -94,6 +104,7 @@ export default function CentresFilter(props: CentresFilterProps) {
           size="large"
           placeholder="Search here..."
           value={text}
+          allowClear={true}
           onChange={onChangeSearchText}
         />
       </Col>
@@ -104,6 +115,8 @@ export default function CentresFilter(props: CentresFilterProps) {
           size="large"
           dropdownMatchSelectWidth={true}
           value={district}
+          allowClear={true}
+          onClear={onClearDistrict}
           onSelect={onSelectDistrict}
         >
           {districts?.map((district) => (
@@ -115,11 +128,14 @@ export default function CentresFilter(props: CentresFilterProps) {
       </Col>
       <Col xs={24}>
         <Select
+          defaultValue={undefined}
           style={filterSelectStyle}
           placeholder="Filter by Province"
           size="large"
           value={province}
           dropdownMatchSelectWidth={true}
+          allowClear={true}
+          onClear={onClearProvince}
           onSelect={onSelectProvince}
         >
           {provinces?.map((province) => (
