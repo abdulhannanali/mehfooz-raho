@@ -13,6 +13,7 @@ interface LocationFilter {
 }
 
 interface FilterCriteria {
+    id?: string
     district?: string;
     tehsil?: string;
     province?: string;
@@ -22,6 +23,7 @@ interface FilterCriteria {
 
 export const handler : Handler = async function centres (event) {
     const filter : FilterCriteria = {
+        id: event.queryStringParameters['id'],
         district: event.queryStringParameters['district'],
         tehsil: event.queryStringParameters['teshil'],
         province: event.queryStringParameters['province'],
