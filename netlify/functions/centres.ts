@@ -2,16 +2,6 @@ import { Handler } from "@netlify/functions";
 import { getAllVaccinationCentres } from '@abdulhannanali/vaccination-centres-parser';
 import pagination from "./lib/pagination";
 
-
-/**
- * Filters the centres by location
- */
-interface LocationFilter {
-    latitude: string;
-    longitude: string;
-    radius: string;
-}
-
 interface FilterCriteria {
     id?: string
     district?: string;
@@ -35,11 +25,6 @@ export const handler : Handler = async function centres (event) {
     return {
         statusCode: 200,
         body: JSON.stringify(pagination(filter.page, filterCentres(filter))),
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET',
-            'Access-Cotnrol-Allow-Headers': '*'
-        }
     }
 
 }

@@ -8,10 +8,7 @@ const filterData = getSortedFilterData()
 export const handler : Handler = async function () {
     return {
         statusCode: 200,
-        body: JSON.stringify(filterData),
-        headers: {
-            'Access-Control-Allow-Origin': "*"
-        }
+        body: JSON.stringify(filterData)
     }
 }
 

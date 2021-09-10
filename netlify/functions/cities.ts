@@ -13,9 +13,6 @@ interface FilterCriteria {
 export const handler: Handler = async function (event, context) {
     return {
         body: JSON.stringify(getAllVaccinationCities()),
-        headers: {
-            'Access-Control-Allow-Origin': '*'
-        },
         statusCode: 200
     }
 }

@@ -12,10 +12,9 @@ interface HealthCentreMapProps {
 }
 
 function HealthCentreMap(props: HealthCentreMapProps) {
-  const placeId = props.vaccinationCentre.googlePlacesResponse[0]?.place_id
+  const place = props.vaccinationCentre.googlePlacesResponse.find(place => place.place_id !== null)
+  const placeId = place?.place_id
 
-  console.log(props.vaccinationCentre.googlePlacesResponse)
-  
   if (!placeId) {
     return <NotFoundMap />
   }
