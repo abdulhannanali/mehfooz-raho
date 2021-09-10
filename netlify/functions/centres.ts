@@ -13,7 +13,6 @@ interface LocationFilter {
 }
 
 interface FilterCriteria {
-    id?: string;
     district?: string;
     tehsil?: string;
     province?: string;
@@ -23,7 +22,6 @@ interface FilterCriteria {
 
 export const handler : Handler = async function centres (event) {
     const filter : FilterCriteria = {
-        id: event.queryStringParameters['id'],
         district: event.queryStringParameters['district'],
         tehsil: event.queryStringParameters['teshil'],
         province: event.queryStringParameters['province'],
@@ -47,18 +45,18 @@ export const handler : Handler = async function centres (event) {
 function filterCentres ({ district, province, tehsil, name, id }: FilterCriteria) {
     let vaccinationCentres = getAllVaccinationCentres()
     
-    if (district || province || tehsil || name || id) {
-        vaccinationCentres = vaccinationCentres.filter(({ baseVaccinationCentre, id: bId }) => (
-            (!id || id === bId) &&
+    if (district || province || tehsil || name) {
+        vaccinationCentres = vaccinationCentres.filter(({ baseVaccinationCentre, id: oId }) => (
+            (!id || oId === id) &&
             (!district || isMatching(district, baseVaccinationCentre.district)) &&
             (!province || isMatching(province, baseVaccinationCentre.province)) &&
             (!tehsil || isMatching(tehsil, baseVaccinationCentre.tehsil)) &&
             (!name || 
                 (
-                    isMatching(baseVaccinationCentre.name, name) || 
-                    isMatching(baseVaccinationCentre.district, name) || 
-                    isMatching(baseVaccinationCentre.tehsil, name) ||
-                    isMatching(baseVaccinationCentre.province, name)
+                    isMatching(name, baseVaccinationCentre.name) || 
+                    isMatching(name, baseVaccinationCentre.district) || 
+                    isMatching(name, baseVaccinationCentre.tehsil) ||
+                    isMatching(name, baseVaccinationCentre.province)
                 )
             )
         ))
@@ -70,5 +68,5 @@ function filterCentres ({ district, province, tehsil, name, id }: FilterCriteria
 
 
 function isMatching (arg: string, str: string): boolean {
-    return str.toLowerCase().match(arg.toLowerCase()) !== null
+    return str.toLowerCase().indexOf(arg.toLowerCase()) !== -1
 }
