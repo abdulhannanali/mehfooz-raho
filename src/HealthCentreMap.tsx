@@ -13,6 +13,8 @@ interface HealthCentreMapProps {
 
 function HealthCentreMap(props: HealthCentreMapProps) {
   const placeId = props.vaccinationCentre.googlePlacesResponse[0]?.place_id
+
+  console.log(props.vaccinationCentre.googlePlacesResponse)
   
   if (!placeId) {
     return <NotFoundMap />

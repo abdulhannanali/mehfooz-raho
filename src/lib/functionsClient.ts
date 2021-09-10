@@ -17,7 +17,7 @@ export interface PaginationResponse<T> {
 
 const baseURL =
   window.location.href.indexOf("localhost") !== -1
-    ? "http://localhost:43227"
+    ? "http://localhost:43209"
     : "/.netlify/functions/";
 
 const client = axios.create({
@@ -29,8 +29,8 @@ export async function getVaccinationCentres(filter: VaccinationCentresFilter) {
     params: {
       id: filter.id,
       page: filter.page || "1",
-      district: filter.district || "",
-      tehsil: filter.tehsil || "",
+      district: filter.district,
+      tehsil: filter.tehsil,
       name: filter.filterText,
       province: filter.province,
     } as VaccinationCentresFilter,

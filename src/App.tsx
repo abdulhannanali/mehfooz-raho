@@ -41,8 +41,7 @@ function App() {
           <Route exact path="/cities" component={Cities}></Route>
           <Route exact path="/centres" component={AllCentresDisplay}></Route>
           <Route
-            exact
-            path="/centre/:centreId"
+            path="/centre/:id"
             component={VaccinationCentreOverview}
           />
         </Switch>

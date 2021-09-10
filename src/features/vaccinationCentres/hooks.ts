@@ -7,9 +7,9 @@ import { VaccinationCentresFilter } from "./slice/types";
 
 export function useVaccinationCentre(id: string) {
   const dispatch = useAppDispatch();
-  dispatch(thunks.fetchVaccinationCentreThunk(id));
-
   const filter: VaccinationCentresFilter = { id };
+  dispatch(thunks.fetchVaccinationCentreThunk(filter));
+
   const queryId = createQueryId(filter);
 
   const vaccinationCentre = useAppSelector((state: RootState) =>

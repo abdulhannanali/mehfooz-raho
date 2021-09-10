@@ -33,9 +33,8 @@ export const fetchVaccinationCentresThunk = createAsyncThunk(
 
 export const fetchVaccinationCentreThunk = createAsyncThunk(
   `${SLICE_NAME}/fetchVaccinationCentre`,
-  (id: string, thunkApi) => {
+  (filter: VaccinationCentresFilter, thunkApi) => {
     const state = <RootState>thunkApi.getState();
-    const filter: VaccinationCentresFilter = { id };
     const query = queriesSelectors.selectById(
       state.vaccinationCentres.queries,
       createQueryId(filter)

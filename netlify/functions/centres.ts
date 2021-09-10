@@ -47,14 +47,15 @@ export const handler : Handler = async function centres (event) {
 function filterCentres ({ district, province, tehsil, name, id }: FilterCriteria) {
     let vaccinationCentres = getAllVaccinationCentres()
     
-    if (district || province || tehsil || name) {
+    if (district || province || tehsil || name || id) {
         vaccinationCentres = vaccinationCentres.filter(({ baseVaccinationCentre, id: oId }) => (
-            (!id || oId === id) &&
+            (!id || isMatching(id, oId)) &&
             (!district || isMatching(district, baseVaccinationCentre.district)) &&
             (!province || isMatching(province, baseVaccinationCentre.province)) &&
             (!tehsil || isMatching(tehsil, baseVaccinationCentre.tehsil)) &&
             (!name || 
                 (
+                    isMatching(name, id) ||
                     isMatching(name, baseVaccinationCentre.name) || 
                     isMatching(name, baseVaccinationCentre.district) || 
                     isMatching(name, baseVaccinationCentre.tehsil) ||

@@ -61,10 +61,10 @@ function VaccinationCentreInformationDiv(props: VaccinationCentre) {
 }
 
 export default function VaccinationCentreOverview(props: {}) {
-  const params = useParams<{ centreId: string }>();
+  const params = useParams<{ id: string }>();
 
   const currentLocation = window.location.href;
-  const result = useVaccinationCentre(params.centreId);
+  const result = useVaccinationCentre(params.id);
 
   if (result.isLoading === true) {
     return <Skeleton paragraph={{ rows: 5 }} active={true} />;
