@@ -66,10 +66,10 @@ function VaccinationCityGroupItem(props: { id: EntityId; isLoading: boolean }) {
             description={
               <Link to={`/centres?district=${district}&tehsil=${tehsil}`}>
                 <div className="additionalInformationTags">
-                  <Link to={`/province/${province?.toLowerCase()}`}>
+                  <Link to={`/centres?province=${province?.toLowerCase()}`}>
                     <Tag color="red">{province?.toLowerCase()}</Tag>
                   </Link>
-                  <Link to={`/district/${district?.toLowerCase()}`}>
+                  <Link to={`/centres?district=${district?.toLowerCase()}`}>
                     <Tag color="blue">{district?.toLowerCase()}</Tag>
                   </Link>
                 </div>

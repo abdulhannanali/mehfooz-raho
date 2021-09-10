@@ -33,12 +33,10 @@ export default function About() {
 
         <Typography.Title level={4}>What's my data source?</Typography.Title>
         <Typography.Paragraph>
-            The original data source is a <a href="https://ncoc.gov.pk/facilities/MVCs_CVCs.pdf">PDF</a>
-            which as of me writing this is the first organic search result on Google. I parsed and converted this data into a REST API to keep the bandwidth consumption per user at a minimum.
+            The original data source is a <a href="https://ncoc.gov.pk/facilities/MVCs_CVCs.pdf">PDF</a> which as of writing this is the first organic search result on Google. I parsed and converted this data into a REST API to keep the bandwidth consumption per user at a minimum.
             <br />
             <br />
-            Since this data source is static and not continuosuly updated by government. There's little I can do to assure it's continuous reliability. Hence, I provide this data AS/IS without 
-            any implied warranty and legibility. 
+            Since this data source is static and not continuosuly updated by government. There's little I can do to assure it's continuous reliability. Hence, I provide this data AS/IS without any implied warranty and legibility. 
             <br />
             <br />
             A feedback feature in the future might help with this.

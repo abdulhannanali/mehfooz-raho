@@ -52,10 +52,10 @@ function filterCentres ({ district, province, tehsil, name }: FilterCriteria) {
             (!tehsil || isMatching(tehsil, baseVaccinationCentre.tehsil)) &&
             (!name || 
                 (
-                    isMatching(name, baseVaccinationCentre.name) || 
-                    isMatching(name, baseVaccinationCentre.district) || 
-                    isMatching(name, baseVaccinationCentre.tehsil) ||
-                    isMatching(name, baseVaccinationCentre.province)
+                    isMatching(baseVaccinationCentre.name, name) || 
+                    isMatching(baseVaccinationCentre.district, name) || 
+                    isMatching(baseVaccinationCentre.tehsil, name) ||
+                    isMatching(baseVaccinationCentre.province, name)
                 )
             )
         ))
