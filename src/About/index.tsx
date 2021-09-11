@@ -59,7 +59,10 @@ export default function About() {
         </Typography.Paragraph>
 
         <Typography.Title level={4}>Is the project open source?</Typography.Title>
-        <Typography.Paragraph>Open source has made it possible, I'll share the repo link soon!</Typography.Paragraph>
+        <Typography.Paragraph>
+          The source code of this project is available at https://github.com/abdulhannanali/mehfooz-raho . If you'd like 
+          to contribute pleaes get in touch through the form above or Github issues. 
+        </Typography.Paragraph>
       </Col>
     </Row>
   );
