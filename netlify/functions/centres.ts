@@ -1,6 +1,7 @@
 import { Handler } from "@netlify/functions";
 import { getAllVaccinationCentres } from '@abdulhannanali/vaccination-centres-parser';
 import pagination from "./lib/pagination";
+import { jsonResponse } from "./lib/response";
 
 interface FilterCriteria {
     id?: string
@@ -21,11 +22,7 @@ export const handler : Handler = async function centres (event) {
         page: event.queryStringParameters['page'],
     } 
 
-
-    return {
-        statusCode: 200,
-        body: JSON.stringify(pagination(filter.page, filterCentres(filter))),
-    }
+    return jsonResponse(200, pagination(filter.page, filterCentres(filter)))
 
 }
 

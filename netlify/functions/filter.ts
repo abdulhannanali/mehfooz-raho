@@ -2,14 +2,12 @@ import { Handler } from '@netlify/functions'
 import { getFilterData } from '@abdulhannanali/vaccination-centres-parser'
 import { uniq } from 'ramda'
 import { friendlyNameConverter } from './lib/nameResolver'
+import { jsonResponse } from './lib/response'
 
 const filterData = getSortedFilterData()
 
 export const handler : Handler = async function () {
-    return {
-        statusCode: 200,
-        body: JSON.stringify(filterData)
-    }
+    return jsonResponse(200, filterData)
 }
 
 

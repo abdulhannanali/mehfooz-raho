@@ -1,7 +1,7 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import CentresFilter, { FilterChangeObject } from "../filter/Filter";
-import VaccinationCentresList from "./VaccinationCentresList";
+import {VaccinationCentresList, VaccinationCentresListSkeleton} from "./VaccinationCentresList";
 import { VaccinationCentresFilter } from "./slice/types";
 import { useHistory, useLocation } from "react-router";
 import { fetchVaccinationCentresThunk } from "./slice/thunks";
@@ -12,6 +12,7 @@ import { ResultEntityNotFound } from "../../ResultComponents";
 import PaginationComponent from "./Pagination";
 import GutterRow from "../../GutterRow";
 import { Col, Row } from "antd";
+import { FetchState } from "../FetchState";
 
 type CentreRouteState =
   | {
@@ -31,6 +32,7 @@ export default function CentresDisplay() {
   );
 
   const centresResponse = query?.response;
+
 
   if (query === undefined) {
     dispatch(fetchVaccinationCentresThunk(initialFilter));
@@ -55,10 +57,11 @@ export default function CentresDisplay() {
       page: page.toString(),
     });
   }
-
+  
+  const isLoading = (query === undefined || (FetchState.pending === query.fetchState) || (FetchState.idle === query.fetchState))
   const isResponseEmpty = isEmpty(centresResponse?.elements);
   let finalElement;
-
+  
   if (isResponseEmpty) {
     finalElement = <ResultEntityNotFound targetEntity="Vaccination Centre" />;
   } else if (centresResponse && "elements" in centresResponse) {
@@ -85,7 +88,7 @@ export default function CentresDisplay() {
         currentFilter={initialFilter}
         onChangeFilter={onChangeFilter}
       />
-      {finalElement}
+      {isLoading ?  <VaccinationCentresListSkeleton /> : finalElement }
     </React.Fragment>
   );
 }

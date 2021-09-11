@@ -1,9 +1,9 @@
-import { Col } from "antd";
+import { Col, Row, Skeleton } from "antd";
 import React from "react";
 import VaccinationCentreCard from "./VaccinationCentreCard";
 import GutterRow from "../../GutterRow";
 
-export default function VaccinationCentresList(props: { centres: string[] }) {
+export function VaccinationCentresList(props: { centres: string[] }) {
   const cards = props.centres.map((centre, i) => {
     return (
       <Col xs={24} lg={12} key={centre}>
@@ -17,4 +17,20 @@ export default function VaccinationCentresList(props: { centres: string[] }) {
       <GutterRow style={{ margin: "0 auto" }}>{cards}</GutterRow>
     </React.Fragment>
   );
+}
+
+
+export function VaccinationCentresListSkeleton () {
+  const skeletons = []
+  
+  for (let i = 0; i < 10; i++) {
+    const skeleton = <Col key={'skeleton' + i }xs={24}>
+      <Skeleton active /> 
+    </Col>
+
+    skeletons.push(skeleton)
+  }
+
+  return <Row>{skeletons}</Row>
+  
 }

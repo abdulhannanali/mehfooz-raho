@@ -17,7 +17,7 @@ export interface PaginationResponse<T> {
 
 const baseURL =
   window.location.href.indexOf("localhost") !== -1
-    ? "http://localhost:46471"
+    ? "http://localhost:34125"
     : "/.netlify/functions/";
 
 const client = axios.create({
