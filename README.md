@@ -24,8 +24,8 @@ and the underlying platform is Netlify Functions
 
 ### Parser
 
-The parser is based in another repository and is responsible for fetching the relevant data from Google Places
-API and parsing the vaccination centres data from the raw format.
+The parser is based in another repository and is responsible for fetching the relevant data from Google Places API and parsing the vaccination centres data from the raw format. The parser and it's data can
+be accessed at https://github.com/abdulhannanali/covid-vaccination-centres-parser-pk
 
 #### LICENSE
 
