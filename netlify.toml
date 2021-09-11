@@ -9,6 +9,11 @@
   NPM_CONFIG_USERCONFIG = "./netlify/.npmrc"
 
 [[redirects]]
+  from = "/opensource"
+  to = "https://github.com/abdulhannanali/mehfooz-raho/"
+  status = 301
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
