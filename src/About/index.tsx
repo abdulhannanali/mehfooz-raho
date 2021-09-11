@@ -60,8 +60,7 @@ export default function About() {
 
         <Typography.Title level={4}>Is the project open source?</Typography.Title>
         <Typography.Paragraph>
-          The source code of this project is available at https://github.com/abdulhannanali/mehfooz-raho . If you'd like 
-          to contribute pleaes get in touch through the form above or Github issues. 
+          The source code for this project is available at <a href="https://mehfooz.raho/opensource">mehfooz.raho/opensource</a> and I am looking for contributors to make this project even more awesome so it can help more people
         </Typography.Paragraph>
       </Col>
     </Row>
